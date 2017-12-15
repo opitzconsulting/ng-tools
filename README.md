@@ -24,6 +24,7 @@ This repository has originally created and maintained by volunteers of OPITZ CON
 * Schematics for best practices, maybe even as a user-defined extension to the Angular CLI
 * Logging and tracing
 * Date/time and calendar components or utilities
+* File upload component
 
 ## TODOs
 * CI
