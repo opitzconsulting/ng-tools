@@ -28,5 +28,6 @@ This repository has originally created and maintained by volunteers of OPITZ CON
 ## TODOs
 * CI
 * establishing a workflow for automatic builds and quality control
-* 
+* agreeing on a way to document the library
+* providing components and stuff :).
 
