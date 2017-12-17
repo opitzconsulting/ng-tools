@@ -1,0 +1,75 @@
+{
+  "name": "@oc/ngx-tools",
+  "version": "0.0.0-development",
+  "description": "Tools for Enterprise Angular Applications",
+  "main": "./bundles/ngx-tools.umd.js",
+  "module": "./esm5/ngx-tools.js",
+  "es2015": "./esm2015/ngx-tools.js",
+  "typings": "./ngx-tools.d.ts",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts)": [
+      "prettier --single-quote --parser typescript --write",
+      "tslint --fix",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:inline && npm run build:esm2015 && npm run build:fesm2015 && npm run build:esm5 && npm run build:fesm5 && npm run build:umd && npm run build:min && npm run move:assets",
+    "build:inline": "copyfiles *.ts ./tmp && node inlineAssets.js",
+    "build:esm2015": "ngc -p tsconfig-esm2015.json",
+    "build:fesm2015": "rollup -c rollup-esm2015.conf.js",
+    "build:esm5": "ngc -p tsconfig-esm5.json",
+    "build:fesm5": "rollup -c rollup-esm5.conf.js",
+    "build:umd": "rollup -c rollup-umd.conf.js",
+    "build:min": "uglifyjs dist/bundles/ngx-tools.umd.js -c -m -o dist/bundles/ngx-tools.umd.min.js",
+    "move:assets": "cp -r tmp/esm2015/*.d.ts tmp/esm2015/src tmp/esm2015/*.json package.json README.md dist/",
+    "clean": "rm -rf dist/ && rm -rf tmp/",
+    "copyPackageJson": "cp package.json dist",
+    "semantic-release": "semantic-release pre && npm run copyPackageJson && npm publish dist && semantic-release post",
+    "commit": "git-cz",
+    "precommit": "lint-staged"
+  },
+  "author": {
+    "name": "OPITZ CONSULTING"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/common": "^5.0.2",
+    "@angular/compiler": "^5.0.2",
+    "@angular/compiler-cli": "^5.0.2",
+    "@angular/core": "^5.0.2",
+    "@angular/platform-browser-dynamic": "^5.0.2",
+    "@angular/platform-browser": "^5.0.2",
+    "gulp-inline-ng2-template": "^4.0.0",
+    "rollup": "^0.51.8",
+    "rsync": "^0.6.1",
+    "rxjs": "^5.5.2",
+    "semantic-release": "^8.2.0",
+    "typescript": "2.4.2",
+    "uglify-js": "^3.0.7",
+    "vinyl-fs": "^2.4.4",
+    "zone.js": "^0.8.14",
+    "codelyzer": "4.0.2",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "lint-staged": "4.3.0",
+    "danger": "1.2.0",
+    "husky": "0.14.3",
+    "lodash": "4.17.4",
+    "prettier": "1.7.4",
+    "ts-node": "3.2.0",
+    "tslint": "5.3.2",
+    "tslint-config-prettier": "1.6.0",
+    "validate-commit-msg": "2.14.0",
+    "copyfiles": "1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephanrauh/oc-ng-tools.git"
+  }
+}
